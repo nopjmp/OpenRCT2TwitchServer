@@ -37,7 +37,10 @@ exports.Initialise = function (AClient)
  */
 exports.Request = function (ARequest, ACallback)
 {
-    ARequest = ARequest.substr(1); //Remove leading slash.
+    while (ARequest.startsWith('/'))
+    {
+        ARequest = ARequest.substr(1); //Remove leading slash.
+    }
 
     let Params = ARequest.split('/');
     let Command = Params[0];
