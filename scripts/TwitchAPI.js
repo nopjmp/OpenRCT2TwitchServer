@@ -1,8 +1,9 @@
-const Config = require('../config/config.json');
 var Client;
 
 const ParameterLogin = 'login';
 const ParameterId = 'id';
+
+const ClientID = process.env.CLIENT_ID
 
 /**
  * Initialises the API functionality.
@@ -36,7 +37,7 @@ exports.GetFollowers = function (AChannel, ACallback)
     Client.api({
         url: 'https://api.twitch.tv/helix/users/follows?to_id=' + AChannel.Id + '&first=' + MaxElements + Pagination,
         headers: {
-            'Client-ID': Config.ClientID
+            'Client-ID': ClientID
         }
     }, function (Err, Res, Body)
         {
@@ -88,7 +89,7 @@ function GetLoginOrId (ALoginOrIdList, AParameterString, ACallback)
     Client.api({
         url: 'https://api.twitch.tv/helix/users?' + CombinedParameterString,
         headers: {
-            'Client-ID': Config.ClientID
+            'Client-ID': ClientID
         }
     }, function (Err, Res, Body)
         {

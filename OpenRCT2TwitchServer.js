@@ -1,13 +1,12 @@
 console.log('Starting Twitch integration server for OpenRCT2...');
 
-const Config = require('./config/config.json');
 const tmi = require("tmi.js");
 
 Client = new tmi.client({
   identity:
   {
-      username: Config.Name,
-      password: Config.OAuth
+      username: process.env.USERNAME,
+      password: process.env.OAUTH
   },
   connection:
   {
@@ -39,9 +38,9 @@ Client.connect().then(function ()
             );
         });
 
-        App.listen(Config.Port, function()
+        App.listen(process.env.PORT, function()
         {
-          console.log('\nServer started at *:' + Config.Port);
+          console.log('\nServer started at *:' + process.env.PORT);
         });
     }
 );

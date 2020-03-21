@@ -1,4 +1,3 @@
-const Config = require('../config/config.json');
 const TwitchAPI = require('./TwitchAPI.js');
 var Client;
 var ChannelList = new Map();
@@ -12,23 +11,23 @@ exports.Initialise = function (AClient)
     Client = AClient;
     TwitchAPI.Initialise(AClient);
 
-    Client.on('chat', function (AChannel, AData, AMessage, AIsOwnMessage)
-        {
-            let Command = '!news';
+    // Client.on('chat', function (AChannel, AData, AMessage, AIsOwnMessage)
+    //     {
+    //         let Command = '!news';
 
-            if (AChannel.startsWith('#'))
-                AChannel = AChannel.substr(1);
+    //         if (AChannel.startsWith('#'))
+    //             AChannel = AChannel.substr(1);
             
-            //Skip irrelevant messages:
-            if (!AIsOwnMessage && AMessage.startsWith('!') && (AMessage.length > Command.length + 1) && AMessage.startsWith(Command + ' '))
-                if (ChannelList.has(AChannel))
-                {
-                    let Channel = ChannelList.get(AChannel);
-                    if (Channel.Messages.length <= Config.MaxMessageCount)
-                        Channel.Messages.push({ message: Command + ' ' + AData['display-name'] + ':' + AMessage.substr(Command.length) });
-                }
-        }
-    );
+    //         //Skip irrelevant messages:
+    //         if (!AIsOwnMessage && AMessage.startsWith('!') && (AMessage.length > Command.length + 1) && AMessage.startsWith(Command + ' '))
+    //             if (ChannelList.has(AChannel))
+    //             {
+    //                 let Channel = ChannelList.get(AChannel);
+    //                 if (Channel.Messages.length <= 10)
+    //                     Channel.Messages.push({ message: Command + ' ' + AData['display-name'] + ':' + AMessage.substr(Command.length) });
+    //             }
+    //     }
+    // );
 };
 
 /**
